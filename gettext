@@ -1,0 +1,40 @@
+#!/bin/ash
+# Copyright (C) 2023 Marcos Contant (stemsee)
+# with input and debugging by gyro
+# transtext
+# depends on trans script (a google api implementation)and google online translation services
+# gpl 3 license for personal use. <http://www.opensource.org/licenses/GPL-3.0/>
+# A Unique Arbitrary License applies for occupational usage from Copyright Holder.
+
+function transtext {
+	[ ! "$lng" ] && lng=$(locale | grep LANG= | cut -f -d'_') || lng="$lng"
+	[[ ! -d /usr/share/locale/transtext/"$lng" ]] && mkdir -p /usr/share/locale/transtext/"$lng"
+	unset WORK
+			HANDLE=$(echo "$1" | md5sum | awk '{print $1}')
+		if [[ -f /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext ]]; then
+			WORK=$(cat /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext)
+			echo "$WORK"
+		elif [[ $(type -p trans) != "" ]]; then
+			 WORK=$(echo -e "$1" | trans -e google -no-auto -b -tl "$lng" -download-audio-as /usr/share/locale/transtext/$lng/$HANDLE.mp3 &)
+			[ "$WORK" ] && echo "$WORK" || echo "$1"
+			[[  ! -f /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext ]] && echo -e "$WORK" > /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext 
+		else
+				echo "$1"
+		fi
+}; export -f transtext
+
+[[ ! "$lng" ]] && lng=$(echo $LANG | cut -f1 -d'_')
+	[ ! -d /usr/share/locale/transtext/"$lng" ] && mkdir -p /usr/share/locale/transtext/"$lng"
+	unset WORK
+
+	HANDLE=$(echo "$1" | md5sum | awk '{print $1}')
+
+if [[ -f /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext ]]; then
+		WORK=$(cat /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext)
+		echo "$WORK"
+		exit
+elif [[ !  -f /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext  ]]; then
+      export	WORK=$(echo -e "$1" | trans -e google -no-auto -no-warn -b -tl "$lng" -download-audio-as /usr/share/locale/transtext/$lng/$HANDLE.mp3)
+      echo -e "$WORK" > /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext
+      echo "$WORK"
+fi	
