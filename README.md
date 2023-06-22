@@ -9,7 +9,7 @@ This means that a retreived translation can be re-used by any number of scripts 
 
 transtexts are stored according to language sub directories for convenience, but it's not necessary.
 
-for example:
+# for example:
 # determine target language from system locale code
 [ ! "$lng" ] && lng=$(locale | grep LANG= | cut -f -d'_') || lng="$lng"
 
