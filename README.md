@@ -8,10 +8,10 @@ for example:
 # determine target language from system locale code
 [ ! "$lng" ] && lng=$(locale | grep LANG= | cut -f -d'_') || lng="$lng"
 
-# get the hash of the original string to use as the name of the translated string
+# get the hash of the original string to use as the name of the saved translated string
 HANDLE=$(echo "hello world"  | md5sum | awk '{print $1}')
 
-# use trans to retrieve translation from one of its supported engines (google, bing, yandex), also get audio of translation for audible labels function
+# use trans script or an API command for any translation engine, to retrieve translation from one of its supported engines (google, bing, yandex), also get audio of translation for audible labels function
 WORK=$(echo -e "$1" | trans -e google -no-auto -b -tl "$lng" -download-audio-as /usr/share/locale/transtext/$lng/$HANDLE.mp3 &)
 
 # output translated string to the gettext call in the script/app
