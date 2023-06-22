@@ -1,5 +1,5 @@
 # transtext
-transtext is a drop in inclusive replacement for GNU-gettext.
+transtext is a drop in inclusive replacement for GNU-gettext. It is inclusive in that translations are not exclusive to a TEXTDOMAIN.
 
 transtext currently uses trans script to accomplish text string translations, either for interface labels or bodies of text. However any translation engine API could feasibly by used.
 
