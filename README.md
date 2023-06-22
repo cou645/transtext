@@ -1,8 +1,13 @@
 # transtext
-transtext is a drop in inclusive replacement for GNU-gettext
-transtext currently uses trans script to accomplish text string translations, either for interface labels or bodies of text.
-The transtext system hashes the original text string and stores the retrieved translation using the hash. This is more efficient than the GNU-gettext szstem which stores translations according to TEXTDOMAINS, which is the scripts name.
-This means that a retreived translation can be re-used by any number of scripts because the hash for a given string will always be the same. transtexts are stored according to language sub directories for convenience, but it's not necessary.
+transtext is a drop in inclusive replacement for GNU-gettext.
+
+transtext currently uses trans script to accomplish text string translations, either for interface labels or bodies of text. However any translation engine API could feasibly by used.
+
+The transtext system hashes the original text string and stores the retrieved translation using the hash. 
+This is more efficient than the GNU-gettext system which stores translations according to TEXTDOMAINs, which is the scripts name.
+This means that a retreived translation can be re-used by any number of scripts because the hash for a given string will always be the same. 
+
+transtexts are stored according to language sub directories for convenience, but it's not necessary.
 
 for example:
 # determine target language from system locale code
