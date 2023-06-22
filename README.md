@@ -25,6 +25,7 @@ echo "$WORK"
 # save the translated string in target language directory with the hash $HANDLE and .transtext extension
 [[  ! -f /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext ]] && echo -e "$WORK" > /usr/share/locale/transtext/"$lng"/"$HANDLE".transtext
 
+# End of example
 The script first hashes the input text string and searches for a saved transtext translation to use, before attempting to get a translation from a translation server.
 
 A transtext function is included to translate the labels of a review editor which is included in the gettext function, this is to avoid an infinite loop.
