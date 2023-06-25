@@ -11,7 +11,7 @@ transtexts are stored according to language sub directories for convenience, but
 
 # for example:
 # determine target language from system locale code
-[ ! "$lng" ] && lng=$(locale | grep LANG= | cut -f -d'_') || lng="$lng"
+[ ! "$lng" ] && lng=$(locale | grep LANG= | cut -f1 -d'_') || lng="$lng"
 
 # get the hash of the original string to use as the name of the saved translated string
 HANDLE=$(echo "hello world"  | md5sum | awk '{print $1}')
